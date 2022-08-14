@@ -1,0 +1,59 @@
+
+.login {
+  min-height: 70vh;
+}
+.bg-image {
+  background-image: url(../src/images/Moon.png);
+  background-size: cover;
+  background-position: center;
+}
+.bg-image-2 {
+  background-image: url(../src/images/Project_Logo.png);
+  width: 250px;
+  height: 230px;
+  background-position: center;
+  margin-left: 250px;
+}
+
+.reg-container{
+  margin-top: 50px;
+}
+
+.left{
+  position: relative;
+}
+
+.login-heading {
+  font-weight: 300;
+  padding-bottom: 2rem;
+}
+.register-heading{
+  font-weight: 300;
+  margin-left: 1.5rem;
+}
+.btn-login-1{
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  padding: 10px 10px;
+  margin-right: 10px;
+}
+.btn-login-2{
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  padding: 10px 10px;
+  margin-left: 9rem;
+}
+.btn{
+  display: inline-block;
+}
+.btn-reg{
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  padding: 10px 10px;
+  margin-left: 1.5rem;
+}
+
+.invalid
+{
+  border-color: red!important;
+}
