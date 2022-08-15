@@ -7,13 +7,14 @@ import "react-phone-input-2/lib/style.css";
 
 const defaultState = {
   name: null,
+  phone:null,
   email: null,
   password: null,
   nameError: null,
   emailError: null,
   passwordError: null,
 };
-class Login extends React.Component {
+class Register extends React.Component {
   constructor() {
     super();
     this.state = defaultState;
@@ -34,12 +35,16 @@ validate() {
   if (!this.state.name) {
     nameError = "Name field is required";
   }
-  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   if (!this.state.email || reg.test(this.state.email) === false) {
     emailError = "Email Field is Invalid ";
   }
   if (!this.state.password) {
     passwordError = "Password field is required";
+  }
+  if (emailError || nameError || passwordError) {
+    this.setState({ emailError,nameError, passwordError });
+    return false;
   }
   return true;
 }
@@ -69,7 +74,10 @@ validate() {
                         <label for="name">Enter your name :</label>
                           <input
                             type="text"
-                            className={"form-control "}
+                            className={
+                              "form-control " +
+                              (this.state.nameError ? "invalid" : "")
+                            }
                             id="name"
                             name="name"
                             placeholder="Name"
@@ -81,6 +89,7 @@ validate() {
                           <input
                             type="text"
                             className={"form-control "}
+                            
                             id="surname"
                             name="surname"
                             placeholder="Surname"
@@ -116,6 +125,7 @@ validate() {
                           </label>
                           <PhoneInput
                             country={"tr"}
+                            name="phone"
                             value={this.state.phone}
                             onChange={(phone) => this.setState({ phone })}
                           />
@@ -162,4 +172,4 @@ validate() {
     );
   }
 }
-export default Login;
+export default Register;

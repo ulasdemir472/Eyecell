@@ -1,4 +1,4 @@
-import React, { useNavigate } from "react";
+import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 
 const defaultState = {
   name: null,
-  email: null,
+  phone: null,
   password: null,
   nameError: null,
-  emailError: null,
-  passwordError: null,
+  passwordError: null
 };
 
 class Login extends React.Component {
@@ -31,7 +30,6 @@ class Login extends React.Component {
   }
   validate() {
     let nameError = "";
-    let emailError = "";
     let passwordError = "";
     if (!this.state.name) {
       nameError = "Name field is required";
@@ -40,10 +38,10 @@ class Login extends React.Component {
     if (!this.state.password) {
       passwordError = "Password field is required";
     }
-    // if (emailError || nameError || passwordError) {
-    //   this.setState({ nameError, emailError, passwordError });
-    //   return false;
-    // }
+    if (nameError || passwordError) {
+      this.setState({ nameError, passwordError });
+      return false;
+    }
     return true;
   }
   submit() {
@@ -70,28 +68,14 @@ class Login extends React.Component {
 
                       <form>
                         <div class="form-floating mb-3">
-                          {/* <input
-                            type="email"
-                            className={
-                              "form-control " +
-                              (this.state.emailError ? "invalid" : "")
-                            }
-                            id="floatingInput"
-                            name="email"
-                            placeholder="name@example.com"
-                            value={this.state.email}
-                            onChange={this.handleInputChange}
-                          />
-                          <label for="floatingInput">Phone Number</label>
-                          <span className="text-danger">
-                            {this.state.emailError}
-                          </span> */}
                           <PhoneInput
                             country={"tr"}
+                            name="phone"
                             value={this.state.phone}
                             onChange={(phone) => this.setState({ phone })}
                           />
                         </div>
+                        
                         <div class="form-floating mb-3">
                           <input
                             type="password"
@@ -133,26 +117,19 @@ class Login extends React.Component {
                         >
                           Login
                         </button>
-                        {/* <button
-                          component={Link}
-                          to="./register"
-                          variant="contained"
-                          color="secondary"
-                        >
-                          CLICK
-                        </button> */}
+                        
                         <Link to="/register">
                           <button
                             class="btn btn-outline-primary btn-login-2 fw-bold mb-2 col-4"
                             type="button"
-                            onClick={() => this.submit()}
+                            
                           >
                             Register
                           </button>
                         </Link>
 
                         <div class="text-center">
-                          <a class="small" href="#">
+                          <a class="small" href="/">
                             Forgot password?
                           </a>
                         </div>
