@@ -2,54 +2,67 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Link } from "react-router-dom";
 
-const defaultState = {
-  name: null,
-  phone: null,
-  password: null,
-  nameError: null,
-  passwordError: null
-};
+
+
 
 class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = defaultState;
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-  handleInputChange(event) {
+  state = { users: [], password: null, msisdn: "", passwordError: null };
+
+  onChangeHandler = (event) => {
     const target = event.target;
     var value = target.value;
     const name = target.name;
+
     this.setState({
       [name]: value,
     });
-  }
+  };
   validate() {
-    let nameError = "";
     let passwordError = "";
-    if (!this.state.name) {
-      nameError = "Name field is required";
-    }
+    
 
     if (!this.state.password) {
       passwordError = "Password field is required";
     }
-    if (nameError || passwordError) {
-      this.setState({ nameError, passwordError });
+    if (passwordError) {
+      this.setState({ passwordError });
       return false;
     }
     return true;
   }
-  submit() {
-    if (this.validate()) {
-      console.warn(this.state);
-      this.setState(defaultState);
+
+  onSubmitHandler = (event) => {
+    if(this.validate()){
+      event.preventDefault();
+      this.checkUser();
     }
+  };
+
+  async componentDidMount() {
+    this.getUser();
   }
+
+  getUser = () => {
+    fetch("http://34.140.158.254:8082/5513852246/nevarlan1")
+      .then((Response) => Response.json())
+      .then((data) => this.setState({ users: data }));
+  };
+
+  checkUser = () => {
+    this.state.users.map((user) => (
+      <div>{user.password === this.state.password && user.msisdn === this.state.msisdn ? this.navigateToInfo() : window.alert("Invalid") }</div>
+    ))
+
+  }
+
+  navigateToInfo = () => {
+    window.location = window.location + "information";
+    
+  }
+  
   render() {
     return (
       <div className="App">
@@ -65,17 +78,30 @@ class Login extends React.Component {
                         Very Easy Very Professional!
                       </h3>
                       <h4 class="login-heading mb-4">Login to Your Account</h4>
+                      {/* <div>
+                        {this.state.users.map((user) => (
+                          <h3>{user.password}</h3>
+                        ))}
+                      </div> */}
 
-                      <form>
+
+                      <form onSubmit={this.onSubmitHandler}>
                         <div class="form-floating mb-3">
-                          <PhoneInput
-                            country={"tr"}
-                            name="phone"
-                            value={this.state.phone}
-                            onChange={(phone) => this.setState({ phone })}
+                          <input
+                            className="form-control"
+                            type="text"
+                            id="msisdn"
+                            name="msisdn"
+                            placeholder="Enter phone number without 0 "
+                            onChange={this.onChangeHandler}
                           />
+                          <label for="msisdn">
+                            Enter phone number without 0
+                          </label>
                         </div>
-                        
+
+                        <h3>{this.state.msisdn}</h3>
+
                         <div class="form-floating mb-3">
                           <input
                             type="password"
@@ -86,8 +112,7 @@ class Login extends React.Component {
                             id="floatingPassword"
                             name="password"
                             placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
+                            onChange={this.onChangeHandler}
                           />
                           <label for="floatingPassword">Password</label>
                           <span className="text-danger">
@@ -112,17 +137,16 @@ class Login extends React.Component {
 
                         <button
                           class="btn  btn-primary btn-login-1 fw-bold mb-2 col-4"
-                          type="button"
-                          onClick={() => this.submit()}
+                          type="submit"
+                          
                         >
                           Login
                         </button>
-                        
+
                         <Link to="/register">
                           <button
                             class="btn btn-outline-primary btn-login-2 fw-bold mb-2 col-4"
                             type="button"
-                            
                           >
                             Register
                           </button>
@@ -147,4 +171,5 @@ class Login extends React.Component {
     );
   }
 }
+
 export default Login;
