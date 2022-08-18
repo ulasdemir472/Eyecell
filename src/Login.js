@@ -20,7 +20,7 @@ class Login extends React.Component {
       [name]: value,
     });
   };
-  validate() {
+  validate=()=> {
     let passwordError = "";
     
 
@@ -37,6 +37,7 @@ class Login extends React.Component {
   onSubmitHandler = (event) => {
     if(this.validate()){
       event.preventDefault();
+      this.componentDidMount();
       this.checkUser();
     }
   };
@@ -46,7 +47,7 @@ class Login extends React.Component {
   }
 
   getUser = () => {
-    fetch("http://34.140.158.254:8082/5513852246/nevarlan1")
+    fetch("http://34.140.158.254:8082/"+this.state.msisdn+"/"+this.state.password)
       .then((Response) => Response.json())
       .then((data) => this.setState({ users: data }));
   };
@@ -59,7 +60,7 @@ class Login extends React.Component {
   }
 
   navigateToInfo = () => {
-    window.location = window.location + "information";
+    window.location = window.location + "information"; //gerçek app için başına / eklenmeli
     
   }
   

@@ -2,58 +2,87 @@ import React from "react";
 // import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const defaultState = {
-  name: null,
-  phone:null,
-  email: null,
-  password: null,
-  nameError: null,
-  emailError: null,
-  passwordError: null,
-};
+
+//http://34.140.158.254:8082/subs/register MSISDN=5523852246&email=Aydemir081%40gmail.com&name=efekan&packageId=1&password=nevarlan1&surname=aydemir
+
 class Register extends React.Component {
-  constructor() {
-    super();
-    this.state = defaultState;
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-  handleInputChange(event) {
+  state = {
+    name: "",
+    msisdn: "",
+    email: "",
+    password: "",
+    package_id: "",
+    nameError: null,
+    emailError: null,
+    passwordError: null,
+  };
+
+  onChangeHandler = (event) => {
     const target = event.target;
     var value = target.value;
     const name = target.name;
     this.setState({
       [name]: value,
     });
-   }
-validate() {
-  let nameError = "";
-  let emailError = "";
-  let passwordError = "";
-  if (!this.state.name) {
-    nameError = "Name field is required";
+  };
+  validate = () => {
+    let nameError = "";
+    let emailError = "";
+    let passwordError = "";
+    if (!this.state.name) {
+      nameError = "Name field is required";
+    }
+    const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!this.state.email || reg.test(this.state.email) === false) {
+      emailError = "Email Field is Invalid ";
+    }
+    if (!this.state.password) {
+      passwordError = "Password field is required";
+    }
+    if (emailError || nameError || passwordError) {
+      this.setState({ emailError, nameError, passwordError });
+      return false;
+    }
+    return true;
+  };
+  onSubmitHandler = (event) => {
+    if (this.validate()) {
+      event.preventDefault();
+    }
+  };
+  //?MSISDN=5367085824&email=ulasdemir472%40gmail.com&name=ulas&packageId=1&password=1111&surname=demir
+  
+
+
+
+  handleClick = () =>{
+    var jsonData = {
+      "msisdn": this.state.msisdn, 
+      "email": this.state.email, 
+      "name": this.state.name,
+      "packageId" : parseInt(this.state.package_id),
+      "password": this.state.password, 
+      "surname": this.state.surname  
+    }
+    var formData = new FormData();
+    formData.append('json1', JSON.stringify(jsonData));
+
+
+    fetch('http://34.140.158.254:8082/subs/register?MSISDN='+this.state.msisdn+'&email='+this.state.email+'&name='+this.state.name+'&packageId='+this.state.package_id+'&password='+this.state.password+'&surname='+this.state.surname, { 
+
+     method: 'POST', 
+     headers:{"Content-Type": "application/json"},
+     mode: 'cors',
+
+     
+     body: formData//JSON.stringify(this.jsonData) // body data type must match "Content-Type" header
+
+  }).then(()=>{window.location = window.location -"register";})
+    
   }
-  const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  if (!this.state.email || reg.test(this.state.email) === false) {
-    emailError = "Email Field is Invalid ";
-  }
-  if (!this.state.password) {
-    passwordError = "Password field is required";
-  }
-  if (emailError || nameError || passwordError) {
-    this.setState({ emailError,nameError, passwordError });
-    return false;
-  }
-  return true;
-}
- submit() {
-   if (this.validate()) {
-     console.warn(this.state);
-     this.setState(defaultState);
-   }
- }
+
   render() {
     return (
       <div className="App">
@@ -69,9 +98,9 @@ validate() {
                         Very Easy Very Professional!
                       </h3>
 
-                      <form>
+                      <form onSubmit={this.onSubmitHandler}>
                         <div class="form-check mb-3">
-                        <label for="name">Enter your name :</label>
+                          <label for="name">Enter your name</label>
                           <input
                             type="text"
                             className={
@@ -81,25 +110,25 @@ validate() {
                             id="name"
                             name="name"
                             placeholder="Name"
+                            onChange={this.onChangeHandler}
                           />
-                          
-                        </div>
-                        <div class="form-check mb-3">
-                        <label for="Surname">Enter your surname :</label>
-                          <input
-                            type="text"
-                            className={"form-control "}
-                            
-                            id="surname"
-                            name="surname"
-                            placeholder="Surname"
-                          />
-                          
                         </div>
 
                         <div class="form-check mb-3">
-                        <label for="floatingPassword">
-                            Enter your password :
+                          <label for="Surname">Enter your surname</label>
+                          <input
+                            type="text"
+                            className={"form-control "}
+                            id="surname"
+                            name="surname"
+                            placeholder="Surname"
+                            onChange={this.onChangeHandler}
+                          />
+                        </div>
+
+                        <div class="form-check mb-3">
+                          <label for="floatingPassword">
+                            Enter your password
                           </label>
                           <input
                             type="password"
@@ -110,29 +139,47 @@ validate() {
                             id="floatingPassword"
                             name="password"
                             placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
+                            onChange={this.onChangeHandler}
                           />
-                          
+
                           <span className="text-danger">
                             {this.state.passwordError}
                           </span>
                         </div>
 
                         <div class="form-check mb-3">
-                        <label for="floatingInput">
-                            Enter your phone number :
-                          </label>
-                          <PhoneInput
-                            country={"tr"}
-                            name="phone"
-                            value={this.state.phone}
-                            onChange={(phone) => this.setState({ phone })}
+                          <label for="msisdn">Enter phone number</label>
+                          <input
+                            className="form-control"
+                            type="text"
+                            id="msisdn"
+                            name="msisdn"
+                            placeholder="Enter phone number without 0 "
+                            onChange={this.onChangeHandler}
                           />
-                          
                         </div>
+
                         <div class="form-check mb-3">
-                        <label for="floatingInput">Enter your email :</label>
+                          <label for="city">City</label>
+                          <select
+                            class="form-select"
+                            name = "package_id"
+                            id="package_id"
+                            onChange={this.onChangeHandler}
+                          >
+                            <option selected>Select Package</option>
+                            <option value="1">EYECELL 3GB</option>
+                            <option value="2">EYECELL 5GB</option>
+                            <option value="3">EYECELL 7GB</option>
+                            <option value="4">EYECELL 10GB</option>
+                            <option value="5">LAVANTA</option>
+                            <option value="6">BİZONTELE 15GB</option>
+                          </select>
+                        </div>
+                        <h3>{this.state.package_id}</h3>
+
+                        <div class="form-check mb-3">
+                          <label for="floatingInput">Enter your email</label>
                           <input
                             type="email"
                             className={
@@ -143,9 +190,9 @@ validate() {
                             name="email"
                             placeholder="name@example.com"
                             value={this.state.email}
-                            onChange={this.handleInputChange}
+                            onChange={this.onChangeHandler}
                           />
-                          
+
                           <span className="text-danger">
                             {this.state.emailError}
                           </span>
@@ -154,7 +201,7 @@ validate() {
                         <button
                           class="btn btn-primary btn-reg fw-bold mb-2 col-4"
                           type="button"
-                          onClick={() => this.submit()}
+                          onClick={this.handleClick}
                         >
                           Next
                         </button>

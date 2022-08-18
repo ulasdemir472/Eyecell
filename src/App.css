@@ -14,6 +14,8 @@
   margin-left: 250px;
 }
 
+
+
 .reg-container{
   margin-top: 50px;
 }
@@ -58,7 +60,7 @@
 }
 
 .cont-fluid{
-  background: rgb(42, 134, 240); 
+  background: rgb(42, 134, 240);
   display: flex;
   height: 100vh;
   justify-content:space-between;
@@ -77,6 +79,8 @@
   width:500px;
   height: 80vh;
   border-radius: 5%;
+  position: relative;
+  margin-left: 20px;
 }
 #header{
   color: white;          
@@ -91,28 +95,50 @@
   border-radius: 5%;
   position: relative;
 }
+
+.info-dakika{
+  position: absolute;
+  top: 100px;
+  left: -120px;
+}
+#dakika,#internet,#sms{
+  color: #f3f3f3;
+}
+
+.info-internet{
+  position: absolute;
+  top: 280px;
+  left: -120px;
+}
+
+.info-sms{
+  position: absolute;
+  top: 460px;
+  left: -120px;
+}
+
+
 .date{
   width: 700px;
   height: 35vh;
   border-radius: 5%;
   position: absolute;
-  margin-left: 44.5rem;
+  margin-left: 43.3rem;
   margin-top: 300px;
 }
 
 #logo{
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   position: absolute;
   align-self: flex-start;
-  margin-left: 530px;
+
 }
 
 .btn-light{
   position: absolute;
-  align-self: flex-start;
-  margin-top: 10px;
-  margin-left: 10px;
+  top: 30px;
+  left : 1400px;
 }
 
 .box .percent{
@@ -147,6 +173,8 @@
   stroke-dashoffset: calc(440 - (440 * 80) / 100);
   stroke: #03a9f4;
 }
+
+
 
 .box .percent .number{
   position: absolute;
