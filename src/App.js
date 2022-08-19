@@ -3,7 +3,8 @@ import {BrowserRouter , Routes, Route} from 'react-router-dom';
 import Information from './Information';
 import Login from './Login';
 import Register from "./Register"
-;
+
+
 
 
 function App(){

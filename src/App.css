@@ -80,7 +80,7 @@
   height: 80vh;
   border-radius: 5%;
   position: relative;
-  margin-left: 20px;
+  margin-left: 120px;
 }
 #header{
   color: white;          
@@ -94,6 +94,19 @@
   margin-right: 100px;
   border-radius: 5%;
   position: relative;
+}
+
+#packageName{
+  color: rgb(207, 206, 206);
+  position: absolute;
+  top: 60px;
+  left: 30px;
+}
+#duration{
+  color: rgb(207, 206, 206);
+  position: absolute;
+  top: 60px;
+  left: 30px;
 }
 
 .info-dakika{
@@ -158,21 +171,15 @@
   height:150;
   fill: none;
   stroke-width: 10;
-  stroke: #000;
   transform: translate(5px,5px);
   stroke-dasharray: 440;
-  stroke-dashoffset: 440;
-  
-  
 }
+
 .box .percent svg circle:nth-child(1){
   stroke-dashoffset: 0;
   stroke: #f3f3f3;
 }
-.box .percent svg circle:nth-child(2){
-  stroke-dashoffset: calc(440 - (440 * 80) / 100);
-  stroke: #03a9f4;
-}
+
 
 
 
@@ -219,20 +226,15 @@
   height:150;
   fill: none;
   stroke-width: 10;
-  stroke: #000;
   transform: translate(5px,5px);
   stroke-dasharray: 440;
-  stroke-dashoffset: 440;
+
   
   
 }
 .box .percent2 svg circle:nth-child(1){
   stroke-dashoffset: 0;
   stroke: #f3f3f3;
-}
-.box .percent2 svg circle:nth-child(2){
-  stroke-dashoffset: calc(440 - (440 * 80) / 100);
-  stroke: #03a9f4;
 }
 
 .box .percent2 .number2{
@@ -271,10 +273,8 @@
   height:150;
   fill: none;
   stroke-width: 10;
-  stroke: #000;
   transform: translate(5px,5px);
   stroke-dasharray: 440;
-  stroke-dashoffset: 440;
   
   
 }
@@ -282,10 +282,7 @@
   stroke-dashoffset: 0;
   stroke: #f3f3f3;
 }
-.box .percent3 svg circle:nth-child(2){
-  stroke-dashoffset: calc(440 - (440 * 80) / 100);
-  stroke: #03a9f4;
-}
+
 
 .box .percent3 .number3{
   position: absolute;

@@ -38,7 +38,7 @@ class Login extends React.Component {
     if(this.validate()){
       event.preventDefault();
       this.componentDidMount();
-      this.checkUser();
+      this.checkUser();  
     }
   };
 
@@ -54,18 +54,21 @@ class Login extends React.Component {
 
   checkUser = () => {
     this.state.users.map((user) => (
-      <div>{user.password === this.state.password && user.msisdn === this.state.msisdn ? this.navigateToInfo() : window.alert("Invalid") }</div>
+      <div>{user.password === this.state.password && user.msisdn === this.state.msisdn ? this.navigateToInfo() : window.alert("Invalid") }</div> 
     ))
 
   }
 
   navigateToInfo = () => {
-    window.location = window.location + "information"; //gerçek app için başına / eklenmeli
+    window.sessionStorage.setItem("msisdn", this.state.msisdn);
+    window.location = window.location + "information"; 
     
   }
   
   render() {
+    
     return (
+      
       <div className="App">
         <div class="container-fluid ps-md-0">
           <div class="row">
@@ -79,11 +82,7 @@ class Login extends React.Component {
                         Very Easy Very Professional!
                       </h3>
                       <h4 class="login-heading mb-4">Login to Your Account</h4>
-                      {/* <div>
-                        {this.state.users.map((user) => (
-                          <h3>{user.password}</h3>
-                        ))}
-                      </div> */}
+                     
 
 
                       <form onSubmit={this.onSubmitHandler}>
@@ -101,7 +100,8 @@ class Login extends React.Component {
                           </label>
                         </div>
 
-                        <h3>{this.state.msisdn}</h3>
+                        
+                        
 
                         <div class="form-floating mb-3">
                           <input
@@ -169,7 +169,9 @@ class Login extends React.Component {
           </div>
         </div>
       </div>
+      
     );
+    
   }
 }
 

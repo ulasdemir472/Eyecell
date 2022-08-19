@@ -1,11 +1,9 @@
 import React from "react";
-// import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "react-phone-input-2/lib/style.css";
 
 
-//http://34.140.158.254:8082/subs/register MSISDN=5523852246&email=Aydemir081%40gmail.com&name=efekan&packageId=1&password=nevarlan1&surname=aydemir
 
 class Register extends React.Component {
   state = {
@@ -14,6 +12,7 @@ class Register extends React.Component {
     email: "",
     password: "",
     package_id: "",
+    securityQuestion:"",
     nameError: null,
     emailError: null,
     passwordError: null,
@@ -52,7 +51,7 @@ class Register extends React.Component {
       event.preventDefault();
     }
   };
-  //?MSISDN=5367085824&email=ulasdemir472%40gmail.com&name=ulas&packageId=1&password=1111&surname=demir
+  
   
 
 
@@ -64,22 +63,22 @@ class Register extends React.Component {
       "name": this.state.name,
       "packageId" : parseInt(this.state.package_id),
       "password": this.state.password, 
+      "securityQuestion": this.state.securityQuestion,
       "surname": this.state.surname  
     }
     var formData = new FormData();
     formData.append('json1', JSON.stringify(jsonData));
 
 
-    fetch('http://34.140.158.254:8082/subs/register?MSISDN='+this.state.msisdn+'&email='+this.state.email+'&name='+this.state.name+'&packageId='+this.state.package_id+'&password='+this.state.password+'&surname='+this.state.surname, { 
+    fetch('http://34.140.158.254:8082/subs/register?MSISDN='+this.state.msisdn+'&email='+this.state.email+'&name='+this.state.name+'&packageId='+this.state.package_id+'&password='+this.state.password+'&securityQuestion='+this.state.security+'&surname='+this.state.surname, { 
 
      method: 'POST', 
      headers:{"Content-Type": "application/json"},
      mode: 'cors',
 
-     
-     body: formData//JSON.stringify(this.jsonData) // body data type must match "Content-Type" header
+     body: formData
 
-  }).then(()=>{window.location = window.location -"register";})
+  }).then(()=>{window.location = "http://localhost:3000/";})
     
   }
 
@@ -160,7 +159,7 @@ class Register extends React.Component {
                         </div>
 
                         <div class="form-check mb-3">
-                          <label for="city">City</label>
+                          <label for="package">Package</label>
                           <select
                             class="form-select"
                             name = "package_id"
@@ -176,7 +175,7 @@ class Register extends React.Component {
                             <option value="6">BİZONTELE 15GB</option>
                           </select>
                         </div>
-                        <h3>{this.state.package_id}</h3>
+                        
 
                         <div class="form-check mb-3">
                           <label for="floatingInput">Enter your email</label>
@@ -198,12 +197,28 @@ class Register extends React.Component {
                           </span>
                         </div>
 
+                        <div class="form-check mb-3">
+                          <label for="securityQuestion">Security Question</label>
+                          <input
+                            type="text"
+                            className={
+                              "form-control "   
+                            }
+                            id="securityQuestion"
+                            name="securityQuestion"
+                            placeholder="Childhood street"
+                            value={this.state.securityQuestion}
+                            onChange={this.onChangeHandler}
+                          />
+
+                        </div>
+
                         <button
                           class="btn btn-primary btn-reg fw-bold mb-2 col-4"
                           type="button"
                           onClick={this.handleClick}
                         >
-                          Next
+                          Register
                         </button>
                       </form>
                     </div>
