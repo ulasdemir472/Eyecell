@@ -102,6 +102,12 @@
   top: 60px;
   left: 30px;
 }
+#packagePrice{
+  color: rgb(207, 206, 206);
+  position: absolute;
+  top: 110px;
+  left: 30px;
+}
 #duration{
   color: rgb(207, 206, 206);
   position: absolute;

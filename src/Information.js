@@ -141,7 +141,7 @@ class Information extends React.Component {
           <h3 id="header" >User info</h3>
           <div>
             <h2 id="packageName">Package Name : {this.state.packageName}</h2>
-            <h2 id="packageName">Price : {this.state.price}</h2>
+            <h2 id="packagePrice">Price : {this.state.price}</h2>
           </div>
         </div>
         <div class="box date">

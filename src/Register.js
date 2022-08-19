@@ -49,11 +49,15 @@ class Register extends React.Component {
   onSubmitHandler = (event) => {
     if (this.validate()) {
       event.preventDefault();
+      this.componentDidMount();
+      window.location.href = "/";
     }
   };
   
   
-
+  async componentDidMount(){
+    this.handleClick();
+  }
 
 
   handleClick = () =>{
@@ -70,7 +74,7 @@ class Register extends React.Component {
     formData.append('json1', JSON.stringify(jsonData));
 
 
-    fetch('http://34.140.158.254:8082/subs/register?MSISDN='+this.state.msisdn+'&email='+this.state.email+'&name='+this.state.name+'&packageId='+this.state.package_id+'&password='+this.state.password+'&securityQuestion='+this.state.security+'&surname='+this.state.surname, { 
+    fetch('http://34.140.158.254:8082/subs/register?MSISDN='+this.state.msisdn+'&email='+this.state.email+'&name='+this.state.name+'&packageId='+this.state.package_id+'&password='+this.state.password+'&securityQuestion='+this.state.securityQuestion+'&surname='+this.state.surname, { 
 
      method: 'POST', 
      headers:{"Content-Type": "application/json"},
@@ -78,7 +82,7 @@ class Register extends React.Component {
 
      body: formData
 
-  }).then(()=>{window.location = "http://localhost:3000/";})
+  })
     
   }
 
@@ -215,8 +219,8 @@ class Register extends React.Component {
 
                         <button
                           class="btn btn-primary btn-reg fw-bold mb-2 col-4"
-                          type="button"
-                          onClick={this.handleClick}
+                          type="submit"
+                          
                         >
                           Register
                         </button>

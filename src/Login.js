@@ -61,7 +61,7 @@ class Login extends React.Component {
 
   navigateToInfo = () => {
     window.sessionStorage.setItem("msisdn", this.state.msisdn);
-    window.location = window.location + "information"; 
+    window.location.href = "/information"; 
     
   }
   
@@ -154,7 +154,8 @@ class Login extends React.Component {
                         </Link>
 
                         <div class="text-center">
-                          <a class="small" href="/">
+                          
+                          <a class="small" href="/forgotPassword">
                             Forgot password?
                           </a>
                         </div>
